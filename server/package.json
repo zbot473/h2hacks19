@@ -1,0 +1,10 @@
+{
+    "name": "soil-monitor-server",
+    "version": "0.0.1",
+    "description": "Client for Monitoring Soil Moisture",
+    "main": "index.js",
+    "dependencies": {
+        "influx": "^5.0.7",
+        "nrf24":"^0.1.0-beta"
+    }
+}
