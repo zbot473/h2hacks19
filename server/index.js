@@ -10,7 +10,7 @@ app.engine('handlebars', exphbs({
 }));
 app.set('view engine', 'handlebars');
 app.use(bodyParser.json());
-
+//Initialize Database
 const influx = new Influx.InfluxDB({
     host: 'localhost',
     database: 'soil_measurements',
@@ -42,11 +42,11 @@ influx.getDatabaseNames()
         console.error('Error creating Influx database!');
     });
 
-// Root
+// Show home 
 app.get('/', function (req, res, next) {
     res.render('home');
 });
-
+//get latest measurement
 app.get('/current', (req, res, next) => {
     influx.query(`
         select * from soil_moisture
@@ -56,12 +56,6 @@ app.get('/current', (req, res, next) => {
 
     });
 
-});
-
-app.get('/range', () => {
-    res.send({
-        x: 10
-    });
 });
 
 // Send datapoint
