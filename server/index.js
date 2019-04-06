@@ -51,7 +51,6 @@ app.get('/current', (req, res, next) => {
     influx.query(`
         select * from soil_moisture
     `).then(result => {
-        ``
         res.json(result[result.length-1])
 
     });
