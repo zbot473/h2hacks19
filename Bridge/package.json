@@ -4,5 +4,11 @@
     "description": "Node element for Monitoring Soil Moisture",
     "scripts": {
         "start": "node app.js"
+    },
+    "dependencies": {
+        "raspi": "^6.0.1",
+        "request": "^2.88.0",
+        "serialport": "^7.1.4",
+        "uuid": "^3.3.2"
     }
 }
