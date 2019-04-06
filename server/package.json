@@ -2,9 +2,15 @@
     "name": "soil-monitor-server",
     "version": "0.0.1",
     "description": "Client for Monitoring Soil Moisture",
-    "main": "index.js",
+    "scripts": {
+        "start": "node ./bin/www"
+    },
     "dependencies": {
-        "influx": "^5.0.7",
-        "nrf24":"^0.1.0-beta"
+        "body-parser": "^1.18.3",
+        "express": "~4.16.0",
+        "express-handlebars": "^3.0.2",
+        "influx": "^5.0.0-alpha.4",
+        "materialize-css": "^1.0.0",
+        "nrf24": "0.1.0-beta"
     }
 }
