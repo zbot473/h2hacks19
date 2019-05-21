@@ -60,6 +60,7 @@ app.get('/current', (req, res, next) => {
 // Send datapoint
 app.post('/add', (req, res, next) => {
     console.log(req.body);
+    let moisture = req.body.moisture/670
     influx.writePoints([{
         measurement: 'soil_moisture',
         fields: {
