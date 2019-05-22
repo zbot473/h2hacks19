@@ -5,10 +5,8 @@ const exphbs = require('express-handlebars');
 const http = require('http')
 // Server app
 const app = express();
-app.engine('handlebars', exphbs({
-    defaultLayout: 'main'
-}));
-app.set('view engine', 'handlebars');
+app.use(express.static('public'))
+
 app.use(bodyParser.json());
 //Initialize Database
 const influx = new Influx.InfluxDB({
@@ -34,7 +32,7 @@ influx.getDatabaseNames()
     })
     .then(() => {
         http.createServer(app).listen(8010, function () {
-            console.log('Listening on port 8018...')
+            console.log('Listening on port 8010...')
         })
     })
     .catch(err => {
@@ -44,7 +42,7 @@ influx.getDatabaseNames()
 
 // Show home 
 app.get('/', function (req, res, next) {
-    res.render('home');
+    res.sendFile(__dirname+"/views/index.html");
 });
 //get latest measurement
 app.get('/current', (req, res, next) => {
@@ -60,11 +58,12 @@ app.get('/current', (req, res, next) => {
 // Send datapoint
 app.post('/add', (req, res, next) => {
     console.log(req.body);
+    let moisture = req.body.moisture/670
     influx.writePoints([{
         measurement: 'soil_moisture',
         fields: {
             uuid: req.body.uuid,
-            moisture: req.body.moisture
+            moisture: moisture
         }
     }]).then(
         () => {
