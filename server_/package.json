@@ -8,8 +8,6 @@
     "dependencies": {
         "body-parser": "^1.18.3",
         "express": "~4.16.0",
-        "express-handlebars": "^3.0.2",
-        "influx": "^5.0.0-alpha.4",
-        "materialize-css": "^1.0.0"
+        "influx": "^5.0.0-alpha.4"
     }
 }
