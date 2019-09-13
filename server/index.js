@@ -1,8 +1,8 @@
 const Influx = require('./node_modules/influx/lib/src');
 const bodyParser = require('./node_modules/body-parser');
 const express = require('./node_modules/express');
-const exphbs = require('express-handlebars');
-const http = require('http')
+const https = require('https')
+const fs = require('fs')
 // Server app
 const app = express();
 app.use(express.static('public'))
@@ -31,9 +31,13 @@ influx.getDatabaseNames()
         }
     })
     .then(() => {
-        http.createServer(app).listen(8010, function () {
-            console.log('Listening on port 8010...')
-        })
+        https.createServer({
+            key: fs.readFileSync('server.key'),
+            cert: fs.readFileSync('server.cert')
+          }, app)
+          .listen(8010, function () {
+            console.log('Listening on https://localhost:8010...')
+          })
     })
     .catch(err => {
         console.log(err)
@@ -41,15 +45,15 @@ influx.getDatabaseNames()
     });
 
 // Show home 
-app.get('/', function (req, res, next) {
-    res.sendFile(__dirname+"/views/index.html");
+app.get('/', function(req, res, next) {
+    res.sendFile(__dirname + "/views/index.html");
 });
 //get latest measurement
 app.get('/current', (req, res, next) => {
     influx.query(`
         select * from soil_moisture
     `).then(result => {
-        res.json(result[result.length-1])
+        res.json(result[result.length - 1])
 
     });
 
@@ -58,7 +62,7 @@ app.get('/current', (req, res, next) => {
 // Send datapoint
 app.post('/add', (req, res, next) => {
     console.log(req.body);
-    let moisture = req.body.moisture/670
+    let moisture = req.body.moisture / 670
     influx.writePoints([{
         measurement: 'soil_moisture',
         fields: {
