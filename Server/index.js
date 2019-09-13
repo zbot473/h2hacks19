@@ -1,6 +1,6 @@
-const Influx = require('./node_modules/influx/lib/src');
-const bodyParser = require('./node_modules/body-parser');
-const express = require('./node_modules/express');
+const Influx = require('influx/lib/src');
+const bodyParser = require('body-parser');
+const express = require('express');
 const https = require('https')
 const fs = require('fs')
 // Server app
