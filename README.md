@@ -1,4 +1,4 @@
-# ArdsleyHacks19
+# h2hacks19
 
 Client, Server, and Node applications for monitoring soil moisture.
 How it works:
