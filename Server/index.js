@@ -2,7 +2,13 @@ const Influx = require('influx/lib/src');
 const bodyParser = require('body-parser');
 const express = require('express');
 const https = require('https')
+const http = require('http')
 const fs = require('fs')
+var options = {
+    key: fs.readFileSync('server.key'),
+    cert: fs.readFileSync('server.cert')
+};
+
 // Server app
 const app = express();
 app.use(express.static('public'))
@@ -31,13 +37,12 @@ influx.getDatabaseNames()
         }
     })
     .then(() => {
-        https.createServer({
-            key: fs.readFileSync('server.key'),
-            cert: fs.readFileSync('server.cert')
-          }, app)
-          .listen(8010, function () {
-            console.log('Listening on https://localhost:8010...')
-          })
+        https.createServer(options,app).listen(443);
+        http.createServer(function (req, res) {
+            res.writeHead(301, { "Location": "https://" + req.headers['host'] + req.url });
+            res.end();
+        }).listen(80,function(){
+        });
     })
     .catch(err => {
         console.log(err)
