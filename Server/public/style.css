@@ -1,0 +1,28 @@
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.main-content {
+    padding-left: 8px;
+    padding-right: 8px;
+    height:100%;
+}
+
+.canvas-card {
+    width: fit-content;
+    padding: 8px;
+    padding-bottom: 3px;
+}
+
+#moisture-canvas {
+    width: calc(100vh - 100px);
+    height: calc(100vh - 100px);
+    margin-bottom: 0
+}
+
+.square {
+    background-color: darkgray;
+    padding-top: 100%;
+}

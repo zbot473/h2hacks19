@@ -1,9 +1,12 @@
 const Influx = require('influx/lib/src');
 const bodyParser = require('body-parser');
 const express = require('express');
+var sassMiddleware = require('node-sass-middleware');
+var path = require('path');
 const https = require('https')
 const http = require('http')
 const fs = require('fs')
+
 var options = {
     key: fs.readFileSync('server.key'),
     cert: fs.readFileSync('server.cert')
@@ -11,9 +14,17 @@ var options = {
 
 // Server app
 const app = express();
-app.use(express.static('public'))
+console.log(path.join(__dirname, 'public'))
+app.use(sassMiddleware({
+    src: __dirname,
+    dest: path.join(__dirname, 'public'),
+    prefix: '/scss',
+    includePaths: ['./node_modules'],
+    force: true
+}));
+app.use(bodyParser. json());
+app.use('/public', express.static(path.join(__dirname, 'public')))
 
-app.use(bodyParser.json());
 //Initialize Database
 const influx = new Influx.InfluxDB({
     host: 'localhost',
@@ -37,11 +48,11 @@ influx.getDatabaseNames()
         }
     })
     .then(() => {
-        https.createServer(options,app).listen(443);
+        https.createServer(options, app).listen(8040);
         http.createServer(function (req, res) {
             res.writeHead(301, { "Location": "https://" + req.headers['host'] + req.url });
             res.end();
-        }).listen(80,function(){
+        }).listen(8010, function () {
         });
     })
     .catch(err => {
@@ -50,7 +61,7 @@ influx.getDatabaseNames()
     });
 
 // Show home 
-app.get('/', function(req, res, next) {
+app.get('/', function (req, res, next) {
     res.sendFile(__dirname + "/views/index.html");
 });
 //get latest measurement
