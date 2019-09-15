@@ -1,19 +1,36 @@
 <!DOCTYPE html>
-<html lang="en">
+<html style="overflow-x:hidden">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="materialize.min.css">
-    <title>Client</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Soil Moisture</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="materialize.min.css" />
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
 </head>
-<body>
-    <nav>
-        <span class="brand-logo center">Soil Moisture</span>
-    </nav>
-    <h1>Current Water </h1>
-    <div id="disp" style="height: 300px; width:300px; margin-left: auto; margin-right: auto;background-color: lightgrey"></div>
-    <script src="main.js"></script>
+
+<body > 
+
+        <nav class="green darken-2">
+            <a href="#" data-target="sidenav" class="sidenav-trigger waves-ripple"><i class="material-icons">menu</i></a>
+            <a href="#" class="brand-logo center">Soil Moisture</a>
+        </nav>
+        <ul id="sidenav" class="sidenav">
+    
+        </ul>
+        <div class="main-content">
+            <div class="card canvas-card">
+                <canvas id="moisture-canvas">
+    
+                </canvas>
+            </div>
+
+    </div>
+    <script src="client.js"></script>
     <script src="materialize.min.js"></script>
 </body>
+
 </html>
